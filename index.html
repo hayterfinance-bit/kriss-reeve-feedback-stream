@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>HAYTERWAVE — In The Attic (Robot Club Master)</title>
+<title>HAYTERWAVE — In The Attic (Robot Club Master) · for Kriss Reeve</title>
 <meta property="og:title" content="HAYTERWAVE — In The Attic (Robot Club Master)" />
-<meta property="og:description" content="Club master — 48kHz / 24-bit. Feedback welcome." />
+<meta property="og:description" content="Club master · -7 LUFS · 48kHz/24-bit · cooked for Kriss Reeve. Feedback welcome." />
 <meta property="og:type" content="music.song" />
 <style>
   :root{
@@ -14,95 +14,159 @@
   }
   *{box-sizing:border-box}
   body{
-    margin:0; background:
-      radial-gradient(1200px 600px at 70% -10%, rgba(204,0,204,.10), transparent 60%),
-      radial-gradient(900px 500px at 0% 110%, rgba(0,200,200,.08), transparent 60%),
-      var(--bg);
-    color:var(--fg);
+    margin:0; color:var(--fg);
     font-family:"Space Grotesk","Segoe UI",system-ui,sans-serif;
-    min-height:100%; display:flex; justify-content:center; padding:28px 18px;
+    min-height:100%; display:flex; justify-content:center; padding:26px 16px 60px;
+    background:
+      radial-gradient(1200px 600px at 75% -10%, rgba(204,0,204,.12), transparent 60%),
+      radial-gradient(900px 520px at -5% 110%, rgba(0,200,200,.10), transparent 60%),
+      var(--bg);
   }
-  .wrap{width:min(720px,100%)}
+  .wrap{width:min(740px,100%)}
   .card{
     background:var(--panel); border:1px solid var(--line);
-    border-radius:18px; padding:30px; box-shadow:0 0 80px rgba(204,0,204,.07);
+    border-radius:20px; padding:30px; box-shadow:0 0 90px rgba(204,0,204,.08);
+    position:relative; overflow:hidden;
   }
-  .tag{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2); margin:0 0 8px}
-  h1{font-size:30px; margin:0 0 4px; line-height:1.08}
-  .by{color:var(--muted); margin:0 0 20px; font-size:15px}
+  .card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));
+    background-size:200% 100%; animation:slide 6s linear infinite;
+  }
+  @keyframes slide{to{background-position:200% 0}}
 
-  /* visualizer */
-  .viz{
-    position:relative; width:100%; height:140px; border-radius:12px;
-    background:#050505; border:1px solid var(--line); overflow:hidden; margin-bottom:14px;
+  .krisstop{
+    display:inline-flex; align-items:center; gap:8px; font-size:12px;
+    letter-spacing:.16em; text-transform:uppercase; color:#070707; font-weight:800;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    padding:6px 12px; border-radius:999px; margin:0 0 14px;
   }
+  h1{font-size:32px; margin:0 0 4px; line-height:1.05}
+  h1 .r{background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .by{color:var(--muted); margin:0 0 4px; font-size:15px; letter-spacing:.02em}
+  .forkriss{color:var(--accent2); font-size:13px; margin:0 0 20px; font-weight:600}
+
+  .viz{position:relative; width:100%; height:150px; border-radius:14px; background:#040404; border:1px solid var(--line); overflow:hidden; margin-bottom:14px}
   canvas{display:block; width:100%; height:100%}
-  .viz .hint{
-    position:absolute; inset:0; display:grid; place-items:center; gap:6px;
-    color:var(--muted); font-size:13px; letter-spacing:.04em; pointer-events:none;
-    transition:opacity .3s;
-  }
-  .viz .hint b{color:var(--fg); font-weight:600}
+  .viz .hint{position:absolute; inset:0; display:grid; place-items:center; gap:6px; color:var(--muted); font-size:13px; pointer-events:none; transition:opacity .3s}
+  .viz .hint b{color:var(--fg); font-weight:700; font-size:15px}
 
-  audio{width:100%; margin:6px 0 18px; filter:saturate(.9)}
-
-  /* stat flex */
-  .stats{display:flex; flex-wrap:wrap; gap:10px; margin:0 0 20px}
-  .stat{
-    flex:1 1 90px; background:#101010; border:1px solid var(--line);
-    border-radius:10px; padding:10px 12px;
+  .playcta{
+    width:100%; display:flex; align-items:center; justify-content:center; gap:12px;
+    padding:20px; margin:2px 0 12px; cursor:pointer; border:none; border-radius:14px;
+    color:#070707; font-weight:800; font-family:inherit; font-size:20px; letter-spacing:.02em;
+    background:linear-gradient(90deg,var(--accent),var(--accent2)); animation:pulse 2s infinite;
   }
-  .stat .k{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
-  .stat .v{font-size:17px; font-weight:600; margin-top:3px}
-  .stat .v span{color:var(--accent2)}
+  .playcta:hover{filter:brightness(1.07)}
+  .playcta .ico{font-size:23px; line-height:1}
+  .playcta.playing{animation:none; background:#141414; color:var(--fg); border:1px solid #2a2a2a}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(204,0,204,.45)}70%{box-shadow:0 0 0 18px rgba(204,0,204,0)}100%{box-shadow:0 0 0 0 rgba(204,0,204,0)}}
+  .scrub-label{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 4px}
+  audio{width:100%; margin:2px 0 22px; filter:saturate(.9)}
 
-  .row{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:8px}
-  a.btn{
-    flex:1 1 160px; text-align:center; text-decoration:none;
-    padding:13px 14px; border-radius:10px; font-weight:600; font-size:14px;
-    border:1px solid #2a2a2a; color:var(--fg); background:#141414;
-  }
+  .seclabel{display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent2); margin:0 0 9px}
+  .seclabel::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--line),transparent)}
+
+  .stats{display:flex; flex-wrap:wrap; gap:9px; margin:0 0 22px}
+  .stat{flex:1 1 96px; background:#101010; border:1px solid var(--line); border-radius:11px; padding:11px 13px; position:relative; overflow:hidden}
+  .stat::after{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(var(--accent),var(--accent2))}
+  .stat .k{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+  .stat .v{font-size:18px; font-weight:700; margin-top:3px}
+  .stat .v span{color:var(--accent2); font-size:.7em; font-weight:600}
+  .stat .note{font-size:10px; color:#6f6f6f; margin-top:2px}
+
+  /* band balance bars */
+  .bands{display:flex; align-items:flex-end; gap:6px; height:120px; padding:14px; background:#0a0a0a; border:1px solid var(--line); border-radius:12px; margin:0 0 22px}
+  .band{flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end}
+  .band .bar{width:100%; border-radius:4px 4px 0 0; background:linear-gradient(var(--accent2),var(--accent)); min-height:3px}
+  .band .bl{font-size:9.5px; color:var(--muted); letter-spacing:.04em; text-align:center}
+  .band .bp{font-size:10px; color:var(--fg); font-weight:600}
+
+  .row{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:6px}
+  a.btn{flex:1 1 160px; text-align:center; text-decoration:none; padding:13px 14px; border-radius:10px; font-weight:700; font-size:14px; border:1px solid #2a2a2a; color:var(--fg); background:#141414}
   a.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#070707; border:none}
 
-  .vid{margin-top:26px}
-  .vid h2{font-size:14px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
+  .vid{margin-top:32px; opacity:.9}
   .embed{position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; border:1px solid var(--line)}
   .embed iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .facade{position:absolute; inset:0; cursor:pointer; background-size:cover; background-position:center}
+  .facade::before{content:""; position:absolute; inset:0; background:rgba(7,7,7,.45)}
+  .facade .pb{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:66px; height:66px; border-radius:50%; display:grid; place-items:center; background:rgba(7,7,7,.6); border:1px solid rgba(255,255,255,.3); color:#fff; font-size:25px}
+  .facade .lbl{position:absolute; bottom:10px; left:12px; color:#fff; font-size:12px; letter-spacing:.06em; opacity:.92}
 
-  .note{color:var(--muted); font-size:12px; margin-top:20px; line-height:1.55}
+  .inst{margin-top:30px; background:#0a0a0a; border:1px solid var(--line); border-radius:14px; padding:18px}
+  .inst h3{margin:0 0 3px; font-size:17px}
+  .inst p{margin:0 0 12px; color:var(--muted); font-size:12.5px}
+
+  .sig{margin-top:26px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; line-height:1.6}
+  .sig b{color:var(--fg)}
+  .heart{color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card">
-    <p class="tag">For Kriss Reeve — Feedback Stream</p>
-    <h1>In The Attic <span style="color:var(--accent)">— Robot</span></h1>
+    <div class="krisstop">★ Cooked for Kriss Reeve</div>
+    <h1>In The Attic <span class="r">— Robot</span></h1>
     <p class="by">HAYTERWAVE</p>
+    <p class="forkriss">Club Master · submitted to the Kriss Reeve feedback stream</p>
 
     <div class="viz">
       <canvas id="cv"></canvas>
-      <div class="hint" id="hint"><b>▶ Press play</b><span>live spectrum · best on headphones</span></div>
+      <div class="hint" id="hint"><b>▶ Hit play — watch it move</b><span>live spectrum · best on headphones / monitors</span></div>
     </div>
 
+    <button class="playcta" id="play"><span class="ico">▶</span><span id="playtxt">Play Club Master</span></button>
+    <p class="scrub-label">Scrub / volume</p>
     <audio id="aud" controls preload="none" src="robot.mp3" crossorigin="anonymous"></audio>
 
+    <div class="seclabel">File</div>
     <div class="stats">
       <div class="stat"><div class="k">Format</div><div class="v">WAV <span>PCM</span></div></div>
       <div class="stat"><div class="k">Sample Rate</div><div class="v">48 <span>kHz</span></div></div>
       <div class="stat"><div class="k">Bit Depth</div><div class="v">24 <span>bit</span></div></div>
       <div class="stat"><div class="k">Channels</div><div class="v">Stereo</div></div>
       <div class="stat"><div class="k">Length</div><div class="v">3:15</div></div>
-      <div class="stat"><div class="k">Master</div><div class="v">2304 <span>kbps</span></div></div>
+      <div class="stat"><div class="k">Data Rate</div><div class="v">2304 <span>kbps</span></div></div>
     </div>
 
-    <p class="tag" style="margin:0 0 8px">Loudness / Mastering — EBU R128</p>
+    <div class="seclabel">Loudness — EBU R128</div>
     <div class="stats">
-      <div class="stat"><div class="k">Integrated</div><div class="v">-7.0 <span>LUFS</span></div></div>
-      <div class="stat"><div class="k">True Peak</div><div class="v">-0.3 <span>dBTP</span></div></div>
+      <div class="stat"><div class="k">Integrated</div><div class="v">-7.0 <span>LUFS</span></div><div class="note">festival-loud</div></div>
+      <div class="stat"><div class="k">True Peak</div><div class="v">-0.3 <span>dBTP</span></div><div class="note">no clip</div></div>
       <div class="stat"><div class="k">RMS</div><div class="v">-8.5 <span>dB</span></div></div>
-      <div class="stat"><div class="k">Crest</div><div class="v">8.2 <span>dB</span></div></div>
-      <div class="stat"><div class="k">LRA</div><div class="v">2.8 <span>LU</span></div></div>
-      <div class="stat"><div class="k">Peak</div><div class="v">-0.3 <span>dBFS</span></div></div>
+      <div class="stat"><div class="k">Crest</div><div class="v">8.2 <span>dB</span></div><div class="note">punchy</div></div>
+      <div class="stat"><div class="k">LRA</div><div class="v">2.8 <span>LU</span></div><div class="note">glued</div></div>
+      <div class="stat"><div class="k">Sample Peak</div><div class="v">-0.3 <span>dBFS</span></div></div>
+    </div>
+
+    <div class="seclabel">Stereo & Phase</div>
+    <div class="stats">
+      <div class="stat"><div class="k">Correlation</div><div class="v">+0.94</div><div class="note">mono-safe</div></div>
+      <div class="stat"><div class="k">Width</div><div class="v">17 <span>%</span></div><div class="note">side/mid</div></div>
+      <div class="stat"><div class="k">Mid RMS</div><div class="v">-8.6 <span>dB</span></div></div>
+      <div class="stat"><div class="k">Side RMS</div><div class="v">-23.9 <span>dB</span></div></div>
+      <div class="stat"><div class="k">DC Offset</div><div class="v">0.003</div><div class="note">clean</div></div>
+      <div class="stat"><div class="k">Mono Fold</div><div class="v">✓ <span>holds</span></div></div>
+    </div>
+
+    <div class="seclabel">Spectral & Sub</div>
+    <div class="stats">
+      <div class="stat"><div class="k">&lt; 15 Hz Energy</div><div class="v">-31 <span>dB</span></div><div class="note">0.07% — clean headroom</div></div>
+      <div class="stat"><div class="k">Peak Energy</div><div class="v">53.5 <span>Hz</span></div><div class="note">kick/bass region</div></div>
+      <div class="stat"><div class="k">Centroid</div><div class="v">439 <span>Hz</span></div><div class="note">low-weighted</div></div>
+      <div class="stat"><div class="k">Sub-Bass Focus</div><div class="v">88 <span>%</span></div><div class="note">energy &lt;500Hz</div></div>
+    </div>
+
+    <div class="seclabel">Frequency Balance</div>
+    <div class="bands" id="bands">
+      <div class="band"><div class="bar" style="height:100%"></div><div class="bp">32%</div><div class="bl">Sub<br>15–60</div></div>
+      <div class="band"><div class="bar" style="height:100%"></div><div class="bp">32%</div><div class="bl">Bass<br>60–120</div></div>
+      <div class="band"><div class="bar" style="height:75%"></div><div class="bp">24%</div><div class="bl">Lo-Mid<br>120–500</div></div>
+      <div class="band"><div class="bar" style="height:18%"></div><div class="bp">6%</div><div class="bl">Mid<br>.5–2k</div></div>
+      <div class="band"><div class="bar" style="height:11%"></div><div class="bp">3.4%</div><div class="bl">Hi-Mid<br>2–6k</div></div>
+      <div class="band"><div class="bar" style="height:6%"></div><div class="bp">1.7%</div><div class="bl">Highs<br>6–12k</div></div>
+      <div class="band"><div class="bar" style="height:2%"></div><div class="bp">0.1%</div><div class="bl">Air<br>12k+</div></div>
     </div>
 
     <div class="row">
@@ -111,66 +175,92 @@
     </div>
 
     <div class="vid">
-      <h2>Official Video — 3D Isometric (Club Version)</h2>
+      <div class="seclabel">Official Video — 3D Isometric (Club Version)</div>
       <div class="embed">
-        <iframe src="https://www.youtube.com/embed/JnOEdegoIb0"
-          title="In The Attic — 3D Isometric Music Video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen></iframe>
+        <div class="facade" id="vidfacade" style="background-image:url('https://i.ytimg.com/vi/JnOEdegoIb0/hqdefault.jpg')">
+          <div class="pb">▶</div>
+          <div class="lbl">Watch the video</div>
+        </div>
       </div>
     </div>
 
-    <p class="note">
-      Submitted for Kriss Reeve's feedback stream 🙏 — streaming a 320k version
-      for instant playback, grab the WAV for the full 48kHz/24-bit master.
-      Open the tab, hit play, the spectrum runs live. Timestamps welcome.
-    </p>
+    <div class="inst">
+      <div class="seclabel">Bonus — Instrumental Club Master</div>
+      <h3>In The Attic — Instrumental</h3>
+      <p>Same master chain, vocals pulled. 48kHz/24-bit · -7 LUFS.</p>
+      <audio id="inst" controls preload="none" src="instrumental.mp3" crossorigin="anonymous"></audio>
+      <div class="row" style="margin-top:10px">
+        <a class="btn primary" href="instrumental.mp3" download>Instrumental MP3 320</a>
+        <a class="btn" href="instrumental-master.wav" download>Instrumental WAV (52MB)</a>
+      </div>
+    </div>
+
+    <div class="sig">
+      <b>Yo Kriss</b> — appreciate you spinning this on stream <span class="heart">🙏</span>
+      It's a club master, so it's pushed loud (-7 LUFS) but the peaks are clean and the
+      mono fold holds. Sub's tight, no rumble under 15Hz eating headroom. Hit me with
+      timestamps — I read every note. <b>— HAYTERWAVE</b>
+    </div>
   </div>
 </div>
 
 <script>
 (function(){
   const aud=document.getElementById('aud');
+  const inst=document.getElementById('inst');
   const cv=document.getElementById('cv');
   const hint=document.getElementById('hint');
+  const playBtn=document.getElementById('play');
+  const playTxt=document.getElementById('playtxt');
   const ctx=cv.getContext('2d');
-  let ac, analyser, data, started=false, raf;
+  let ac, analyser, data, wired=false, active=aud;
 
-  function fit(){
-    const r=cv.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
-    cv.width=r.width*dpr; cv.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
+  function fit(){const r=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
   window.addEventListener('resize',fit); fit();
 
-  function setup(){
-    if(started) return; started=true;
+  function wire(){
+    if(wired) return; wired=true;
     ac=new (window.AudioContext||window.webkitAudioContext)();
-    const src=ac.createMediaElementSource(aud);
-    analyser=ac.createAnalyser(); analyser.fftSize=256; analyser.smoothingTimeConstant=.8;
-    src.connect(analyser); analyser.connect(ac.destination);
+    analyser=ac.createAnalyser(); analyser.fftSize=512; analyser.smoothingTimeConstant=.82;
+    [aud,inst].forEach(el=>{const s=ac.createMediaElementSource(el); s.connect(analyser);});
+    analyser.connect(ac.destination);
     data=new Uint8Array(analyser.frequencyBinCount);
     draw();
   }
   function draw(){
-    raf=requestAnimationFrame(draw);
-    const w=cv.clientWidth, h=cv.clientHeight;
-    ctx.clearRect(0,0,w,h);
+    requestAnimationFrame(draw);
+    const w=cv.clientWidth,h=cv.clientHeight; ctx.clearRect(0,0,w,h);
+    if(!analyser) return;
     analyser.getByteFrequencyData(data);
-    const n=data.length, bw=w/n;
+    const n=Math.floor(data.length*0.7), bw=w/n;
     for(let i=0;i<n;i++){
-      const v=data[i]/255, bh=v*h;
-      const t=i/n;
-      const r=Math.round(204*(1-t)+0*t);
-      const g=Math.round(0*(1-t)+200*t);
-      const b=Math.round(204*(1-t)+200*t);
+      const v=data[i]/255, bh=v*h, t=i/n;
+      const r=Math.round(204*(1-t)), g=Math.round(200*t), b=Math.round(204*(1-t)+200*t);
       ctx.fillStyle='rgb('+r+','+g+','+b+')';
-      ctx.fillRect(i*bw, h-bh, Math.max(bw-1,1), bh);
+      ctx.fillRect(i*bw,h-bh,Math.max(bw-1,1),bh);
     }
   }
-  aud.addEventListener('play',function(){
-    hint.style.opacity=0;
-    if(ac&&ac.state==='suspended') ac.resume();
-    setup();
+  function startEl(el){
+    active=el; wire(); if(ac.state==='suspended') ac.resume();
+    if(el===aud && !inst.paused) inst.pause();
+    if(el===inst && !aud.paused) aud.pause();
+    el.play();
+  }
+  playBtn.addEventListener('click',()=>{ aud.paused?startEl(aud):aud.pause(); });
+  aud.addEventListener('play',()=>{ hint.style.opacity=0; playBtn.classList.add('playing'); playTxt.textContent='Pause'; playBtn.querySelector('.ico').textContent='❚❚'; });
+  aud.addEventListener('pause',()=>{ playBtn.classList.remove('playing'); playTxt.textContent='Play Club Master'; playBtn.querySelector('.ico').textContent='▶'; });
+  inst.addEventListener('play',()=>{ hint.style.opacity=0; wire(); if(ac.state==='suspended')ac.resume(); if(!aud.paused)aud.pause(); });
+
+  // click-to-load video so it never steals the first click
+  const fac=document.getElementById('vidfacade');
+  fac.addEventListener('click',()=>{
+    const ifr=document.createElement('iframe');
+    ifr.src='https://www.youtube.com/embed/JnOEdegoIb0?autoplay=1';
+    ifr.title='In The Attic — 3D Isometric Music Video';
+    ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    ifr.allowFullscreen=true;
+    if(!aud.paused) aud.pause();
+    fac.replaceWith(ifr);
   });
 })();
 </script>
