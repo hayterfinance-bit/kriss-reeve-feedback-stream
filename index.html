@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HAYTERWAVE — In The Attic (Robot Club Master)</title>
+<meta property="og:title" content="HAYTERWAVE — In The Attic (Robot Club Master)" />
+<meta property="og:description" content="Club master — 48kHz / 24-bit. Feedback welcome." />
+<meta property="og:type" content="music.song" />
+<style>
+  :root{
+    --bg:#070707; --fg:#f4f4f4; --muted:#9a9a9a;
+    --accent:#CC00CC; --accent2:#00C8C8; --panel:#0d0d0d; --line:#1c1c1c;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:
+      radial-gradient(1200px 600px at 70% -10%, rgba(204,0,204,.10), transparent 60%),
+      radial-gradient(900px 500px at 0% 110%, rgba(0,200,200,.08), transparent 60%),
+      var(--bg);
+    color:var(--fg);
+    font-family:"Space Grotesk","Segoe UI",system-ui,sans-serif;
+    min-height:100%; display:flex; justify-content:center; padding:28px 18px;
+  }
+  .wrap{width:min(720px,100%)}
+  .card{
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:18px; padding:30px; box-shadow:0 0 80px rgba(204,0,204,.07);
+  }
+  .tag{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2); margin:0 0 8px}
+  h1{font-size:30px; margin:0 0 4px; line-height:1.08}
+  .by{color:var(--muted); margin:0 0 20px; font-size:15px}
+
+  /* visualizer */
+  .viz{
+    position:relative; width:100%; height:140px; border-radius:12px;
+    background:#050505; border:1px solid var(--line); overflow:hidden; margin-bottom:14px;
+  }
+  canvas{display:block; width:100%; height:100%}
+  .viz .hint{
+    position:absolute; inset:0; display:grid; place-items:center; gap:6px;
+    color:var(--muted); font-size:13px; letter-spacing:.04em; pointer-events:none;
+    transition:opacity .3s;
+  }
+  .viz .hint b{color:var(--fg); font-weight:600}
+
+  audio{width:100%; margin:6px 0 18px; filter:saturate(.9)}
+
+  /* stat flex */
+  .stats{display:flex; flex-wrap:wrap; gap:10px; margin:0 0 20px}
+  .stat{
+    flex:1 1 90px; background:#101010; border:1px solid var(--line);
+    border-radius:10px; padding:10px 12px;
+  }
+  .stat .k{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+  .stat .v{font-size:17px; font-weight:600; margin-top:3px}
+  .stat .v span{color:var(--accent2)}
+
+  .row{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+  a.btn{
+    flex:1 1 160px; text-align:center; text-decoration:none;
+    padding:13px 14px; border-radius:10px; font-weight:600; font-size:14px;
+    border:1px solid #2a2a2a; color:var(--fg); background:#141414;
+  }
+  a.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#070707; border:none}
+
+  .vid{margin-top:26px}
+  .vid h2{font-size:14px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
+  .embed{position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; border:1px solid var(--line)}
+  .embed iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+
+  .note{color:var(--muted); font-size:12px; margin-top:20px; line-height:1.55}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <p class="tag">For Kriss Reeve — Feedback Stream</p>
+    <h1>In The Attic <span style="color:var(--accent)">— Robot</span></h1>
+    <p class="by">HAYTERWAVE</p>
+
+    <div class="viz">
+      <canvas id="cv"></canvas>
+      <div class="hint" id="hint"><b>▶ Press play</b><span>live spectrum · best on headphones</span></div>
+    </div>
+
+    <audio id="aud" controls preload="none" src="robot.mp3" crossorigin="anonymous"></audio>
+
+    <div class="stats">
+      <div class="stat"><div class="k">Format</div><div class="v">WAV <span>PCM</span></div></div>
+      <div class="stat"><div class="k">Sample Rate</div><div class="v">48 <span>kHz</span></div></div>
+      <div class="stat"><div class="k">Bit Depth</div><div class="v">24 <span>bit</span></div></div>
+      <div class="stat"><div class="k">Channels</div><div class="v">Stereo</div></div>
+      <div class="stat"><div class="k">Length</div><div class="v">3:15</div></div>
+      <div class="stat"><div class="k">Master</div><div class="v">2304 <span>kbps</span></div></div>
+    </div>
+
+    <div class="row">
+      <a class="btn primary" href="robot.mp3" download>Download MP3 320</a>
+      <a class="btn" href="robot-master.wav" download>Download WAV master (54MB)</a>
+    </div>
+
+    <div class="vid">
+      <h2>Official Video — 3D Isometric (Club Version)</h2>
+      <div class="embed">
+        <iframe src="https://www.youtube.com/embed/JnOEdegoIb0"
+          title="In The Attic — 3D Isometric Music Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <p class="note">
+      Submitted for Kriss Reeve's feedback stream 🙏 — streaming a 320k version
+      for instant playback, grab the WAV for the full 48kHz/24-bit master.
+      Open the tab, hit play, the spectrum runs live. Timestamps welcome.
+    </p>
+  </div>
+</div>
+
+<script>
+(function(){
+  const aud=document.getElementById('aud');
+  const cv=document.getElementById('cv');
+  const hint=document.getElementById('hint');
+  const ctx=cv.getContext('2d');
+  let ac, analyser, data, started=false, raf;
+
+  function fit(){
+    const r=cv.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+    cv.width=r.width*dpr; cv.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  window.addEventListener('resize',fit); fit();
+
+  function setup(){
+    if(started) return; started=true;
+    ac=new (window.AudioContext||window.webkitAudioContext)();
+    const src=ac.createMediaElementSource(aud);
+    analyser=ac.createAnalyser(); analyser.fftSize=256; analyser.smoothingTimeConstant=.8;
+    src.connect(analyser); analyser.connect(ac.destination);
+    data=new Uint8Array(analyser.frequencyBinCount);
+    draw();
+  }
+  function draw(){
+    raf=requestAnimationFrame(draw);
+    const w=cv.clientWidth, h=cv.clientHeight;
+    ctx.clearRect(0,0,w,h);
+    analyser.getByteFrequencyData(data);
+    const n=data.length, bw=w/n;
+    for(let i=0;i<n;i++){
+      const v=data[i]/255, bh=v*h;
+      const t=i/n;
+      const r=Math.round(204*(1-t)+0*t);
+      const g=Math.round(0*(1-t)+200*t);
+      const b=Math.round(204*(1-t)+200*t);
+      ctx.fillStyle='rgb('+r+','+g+','+b+')';
+      ctx.fillRect(i*bw, h-bh, Math.max(bw-1,1), bh);
+    }
+  }
+  aud.addEventListener('play',function(){
+    hint.style.opacity=0;
+    if(ac&&ac.state==='suspended') ac.resume();
+    setup();
+  });
+})();
+</script>
+</body>
+</html>
