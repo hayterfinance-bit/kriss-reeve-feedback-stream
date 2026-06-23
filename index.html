@@ -22,7 +22,7 @@
       radial-gradient(900px 520px at -5% 110%, rgba(0,200,200,.10), transparent 60%),
       var(--bg);
   }
-  .wrap{width:min(740px,100%); perspective:1400px; perspective-origin:50% 30%}
+  .wrap{width:min(820px,100%); perspective:1400px; perspective-origin:50% 30%}
   .card{
     background:var(--panel); border:1px solid var(--line);
     border-radius:20px; padding:30px; box-shadow:0 30px 90px rgba(0,0,0,.6), 0 0 90px rgba(204,0,204,.08);
@@ -65,22 +65,23 @@
   .scrub-label{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 4px}
   audio{width:100%; margin:2px 0 22px; filter:saturate(.9)}
 
-  .seclabel{display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent2); margin:0 0 9px}
+  .seclabel{display:flex; align-items:center; gap:10px; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent2); margin:0 0 7px}
   .seclabel::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--line),transparent)}
 
-  .stats{display:flex; flex-wrap:wrap; gap:9px; margin:0 0 22px}
-  .stat{flex:1 1 96px; background:linear-gradient(150deg,#151515,#0c0c0c); border:1px solid var(--line); border-radius:11px; padding:11px 13px; position:relative; overflow:hidden;
-    box-shadow:4px 5px 0 rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.04);
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:7px; margin:0 0 16px}
+  .stat{background:linear-gradient(150deg,#151515,#0c0c0c); border:1px solid var(--line); border-radius:9px; padding:7px 9px; position:relative; overflow:hidden;
+    box-shadow:3px 4px 0 rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
     transform:translateZ(0); transition:transform .2s ease, box-shadow .2s ease}
   .stat:hover{transform:translateZ(26px) translateY(-2px); box-shadow:8px 12px 22px rgba(0,0,0,.6), 0 0 22px rgba(0,200,200,.18)}
   .stat::after{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(var(--accent),var(--accent2))}
-  .stat .k{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
-  .stat .v{font-size:18px; font-weight:700; margin-top:3px}
-  .stat .v span{color:var(--accent2); font-size:.7em; font-weight:600}
-  .stat .note{font-size:10px; color:#6f6f6f; margin-top:2px}
+  .stat .k{font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+  .stat .v{font-size:15px; font-weight:700; margin-top:1px; white-space:nowrap}
+  .stat .v span{color:var(--accent2); font-size:.68em; font-weight:600}
+  .stat .note{font-size:9px; color:#6f6f6f; margin-top:1px; line-height:1.2}
+  @media(max-width:560px){.stats{grid-template-columns:repeat(3,1fr)}}
 
   /* band balance bars */
-  .bands{display:flex; align-items:flex-end; gap:6px; height:120px; padding:14px; background:#0a0a0a; border:1px solid var(--line); border-radius:12px; margin:0 0 22px}
+  .bands{display:flex; align-items:flex-end; gap:6px; height:96px; padding:12px; background:#0a0a0a; border:1px solid var(--line); border-radius:12px; margin:0 0 18px}
   .band{flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end}
   .band .bar{width:100%; border-radius:4px 4px 0 0; background:linear-gradient(var(--accent2),var(--accent)); min-height:3px}
   .band .bl{font-size:9.5px; color:var(--muted); letter-spacing:.04em; text-align:center}
@@ -90,13 +91,29 @@
   a.btn{flex:1 1 160px; text-align:center; text-decoration:none; padding:13px 14px; border-radius:10px; font-weight:700; font-size:14px; border:1px solid #2a2a2a; color:var(--fg); background:#141414}
   a.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#070707; border:none}
 
-  .vid{margin-top:32px; opacity:.9}
-  .embed{position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; border:1px solid var(--line)}
+  .vid{margin-top:40px}
+  .vidhead{text-align:center; font-size:23px; font-weight:800; letter-spacing:.03em; margin:0 0 18px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent)); background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent; animation:slide 5s linear infinite, bob 3s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .vidstage{perspective:1300px; padding:24px 0 30px}
+  .embed{position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid var(--line)}
   .embed iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .embed.spin{transform-style:preserve-3d; cursor:pointer;
+    animation:vspin 7s ease-in-out infinite, vglow 3.2s ease-in-out infinite}
+  .embed.spin:hover{animation-play-state:paused; transform:rotateY(0) rotateX(0) scale(1.02)}
+  @keyframes vspin{0%,100%{transform:rotateY(-18deg) rotateX(6deg)}50%{transform:rotateY(18deg) rotateX(-3deg)}}
+  @keyframes vglow{
+    0%,100%{box-shadow:0 26px 60px rgba(0,0,0,.65), 0 0 46px rgba(204,0,204,.40)}
+    50%{box-shadow:0 26px 60px rgba(0,0,0,.65), 0 0 62px rgba(0,200,200,.55)}}
   .facade{position:absolute; inset:0; cursor:pointer; background-size:cover; background-position:center}
-  .facade::before{content:""; position:absolute; inset:0; background:rgba(7,7,7,.45)}
-  .facade .pb{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:66px; height:66px; border-radius:50%; display:grid; place-items:center; background:rgba(7,7,7,.6); border:1px solid rgba(255,255,255,.3); color:#fff; font-size:25px}
-  .facade .lbl{position:absolute; bottom:10px; left:12px; color:#fff; font-size:12px; letter-spacing:.06em; opacity:.92}
+  .facade::before{content:""; position:absolute; inset:0; background:rgba(7,7,7,.40)}
+  .facade .pb{position:absolute; top:50%; left:50%; width:84px; height:84px; border-radius:50%; display:grid; place-items:center;
+    background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#070707; font-size:32px; font-weight:900;
+    box-shadow:0 0 30px rgba(204,0,204,.6); animation:pbpulse 1.8s ease-in-out infinite; transform:translate(-50%,-50%)}
+  @keyframes pbpulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.12)}}
+  .facade .watch{position:absolute; bottom:14px; left:0; right:0; text-align:center; color:#fff; font-weight:800;
+    font-size:14px; letter-spacing:.06em; text-shadow:0 2px 14px #000}
 
   .inst{margin-top:30px; background:#0a0a0a; border:1px solid var(--line); border-radius:14px; padding:18px}
   .inst h3{margin:0 0 3px; font-size:17px}
@@ -208,11 +225,13 @@
     </div>
 
     <div class="vid">
-      <div class="seclabel">Official Video · 3D Isometric (Club Version)</div>
-      <div class="embed">
-        <div class="facade" id="vidfacade" style="background-image:url('https://i.ytimg.com/vi/JnOEdegoIb0/hqdefault.jpg')">
-          <div class="pb">▶</div>
-          <div class="lbl">Watch the video</div>
+      <div class="vidhead">▶ Watch the 3D Robot Reveal</div>
+      <div class="vidstage">
+        <div class="embed spin" id="embed">
+          <div class="facade" id="vidfacade" style="background-image:url('https://i.ytimg.com/vi/JnOEdegoIb0/maxresdefault.jpg')">
+            <div class="pb">▶</div>
+            <div class="watch">Click to play · 3D Isometric Club Version</div>
+          </div>
         </div>
       </div>
     </div>
@@ -294,10 +313,13 @@
 
   // click-to-load video so it never steals the first click
   const fac=document.getElementById('vidfacade');
+  const embed=document.getElementById('embed');
   fac.addEventListener('click',()=>{
+    embed.classList.remove('spin');         // stop the 3D spin so the video sits flat to watch
+    embed.style.transform='none';
     const ifr=document.createElement('iframe');
     ifr.src='https://www.youtube.com/embed/JnOEdegoIb0?autoplay=1';
-    ifr.title='In The Attic 3D Isometric Music Video';
+    ifr.title='Bedford Bassline 3D Isometric Music Video';
     ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
     ifr.allowFullscreen=true;
     if(!aud.paused) aud.pause();
