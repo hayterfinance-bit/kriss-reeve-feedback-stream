@@ -22,11 +22,12 @@
       radial-gradient(900px 520px at -5% 110%, rgba(0,200,200,.10), transparent 60%),
       var(--bg);
   }
-  .wrap{width:min(740px,100%)}
+  .wrap{width:min(740px,100%); perspective:1400px; perspective-origin:50% 30%}
   .card{
     background:var(--panel); border:1px solid var(--line);
-    border-radius:20px; padding:30px; box-shadow:0 0 90px rgba(204,0,204,.08);
-    position:relative; overflow:hidden;
+    border-radius:20px; padding:30px; box-shadow:0 30px 90px rgba(0,0,0,.6), 0 0 90px rgba(204,0,204,.08);
+    position:relative; overflow:hidden; transform-style:preserve-3d;
+    transition:transform .15s ease-out;
   }
   .card::before{
     content:""; position:absolute; top:0; left:0; right:0; height:3px;
@@ -68,7 +69,10 @@
   .seclabel::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--line),transparent)}
 
   .stats{display:flex; flex-wrap:wrap; gap:9px; margin:0 0 22px}
-  .stat{flex:1 1 96px; background:#101010; border:1px solid var(--line); border-radius:11px; padding:11px 13px; position:relative; overflow:hidden}
+  .stat{flex:1 1 96px; background:linear-gradient(150deg,#151515,#0c0c0c); border:1px solid var(--line); border-radius:11px; padding:11px 13px; position:relative; overflow:hidden;
+    box-shadow:4px 5px 0 rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.04);
+    transform:translateZ(0); transition:transform .2s ease, box-shadow .2s ease}
+  .stat:hover{transform:translateZ(26px) translateY(-2px); box-shadow:8px 12px 22px rgba(0,0,0,.6), 0 0 22px rgba(0,200,200,.18)}
   .stat::after{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(var(--accent),var(--accent2))}
   .stat .k{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
   .stat .v{font-size:18px; font-weight:700; margin-top:3px}
@@ -101,11 +105,28 @@
   .sig{margin-top:26px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; line-height:1.6}
   .sig b{color:var(--fg)}
   .heart{color:var(--accent)}
+  .sig a{color:var(--accent2); text-decoration:none; border-bottom:1px solid rgba(0,200,200,.3)}
+
+  /* isometric grid that matches the 3D video vibe */
+  .grid{position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.16;
+    background-image:linear-gradient(rgba(0,200,200,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(204,0,204,.4) 1px,transparent 1px);
+    background-size:42px 42px; transform:perspective(520px) rotateX(58deg) scale(2.2); transform-origin:top center;
+    animation:gridmove 14s linear infinite; mask-image:linear-gradient(#000,transparent 70%);}
+  @keyframes gridmove{to{background-position:0 84px,84px 0}}
+  .card>*{position:relative; z-index:1}
+
+  /* intro + reveal */
+  .card{opacity:0; transform:translateY(14px) scale(.99); animation:cardin .7s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes cardin{to{opacity:1; transform:none}}
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1; transform:none}
+  .band .bar{transition:height 1.1s cubic-bezier(.2,.8,.2,1)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="card">
+  <div class="card" id="card">
+    <div class="grid"></div>
     <div class="krisstop">★ Cooked for Kriss Reeve</div>
     <h1>In The Attic <span class="r">— Robot</span></h1>
     <p class="by">HAYTERWAVE</p>
@@ -199,7 +220,8 @@
       <b>Yo Kriss</b> — appreciate you spinning this on stream <span class="heart">🙏</span>
       It's a club master, so it's pushed loud (-7 LUFS) but the peaks are clean and the
       mono fold holds. Sub's tight, no rumble under 15Hz eating headroom. Hit me with
-      timestamps — I read every note. <b>— HAYTERWAVE</b>
+      timestamps — I read every note. <b>— HAYTERWAVE</b><br>
+      <a href="mailto:hayterfinance@gmail.com?subject=In%20The%20Attic%20—%20feedback">reach me here</a>
     </div>
   </div>
 </div>
@@ -262,6 +284,48 @@
     if(!aud.paused) aud.pause();
     fac.replaceWith(ifr);
   });
+
+  /* ---- 2.5D isometric pointer-parallax tilt ---- */
+  const card=document.getElementById('card');
+  const grid=card.querySelector('.grid');
+  let tx=0,ty=0,cx=0,cy=0;
+  const fine=window.matchMedia('(pointer:fine)').matches;
+  if(fine){
+    window.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      tx=((e.clientX-(r.left+r.width/2))/r.width); ty=((e.clientY-(r.top+r.height/2))/r.height);
+    });
+    (function loop(){
+      cx+=(tx-cx)*.08; cy+=(ty-cy)*.08;
+      card.style.transform='rotateY('+(cx*7).toFixed(2)+'deg) rotateX('+(-cy*7).toFixed(2)+'deg)';
+      if(grid) grid.style.transform='perspective(520px) rotateX(58deg) scale(2.2) translate('+(cx*-26)+'px,'+(cy*-18)+'px)';
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---- staggered reveal + count-up ---- */
+  const sections=[...document.querySelectorAll('.seclabel,.stats,.bands,.row,.vid,.inst,.sig')];
+  sections.forEach(el=>el.classList.add('reveal'));
+  function countUp(stat){
+    const vEl=stat.querySelector('.v'); if(!vEl||vEl.dataset.done)return;
+    const html=vEl.innerHTML; const m=html.match(/-?\d+\.?\d*/); if(!m){return;}
+    vEl.dataset.done=1; const target=parseFloat(m[0]); const dec=(m[0].split('.')[1]||'').length;
+    const t0=performance.now(), dur=850;
+    (function step(t){
+      const p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,3), cur=(target*e).toFixed(dec);
+      vEl.innerHTML=html.replace(m[0],cur); if(p<1)requestAnimationFrame(step);
+    })(t0);
+  }
+  const io=new IntersectionObserver((ents)=>{
+    ents.forEach((ent,i)=>{
+      if(!ent.isIntersecting)return;
+      const el=ent.target; setTimeout(()=>el.classList.add('in'),60);
+      if(el.classList.contains('stats')) el.querySelectorAll('.stat').forEach((s,j)=>setTimeout(()=>countUp(s),120+j*70));
+      if(el.classList.contains('bands')) el.querySelectorAll('.band .bar').forEach(b=>{const h=b.style.height;b.style.height='0%';requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.height=h));});
+      io.unobserve(el);
+    });
+  },{threshold:.2});
+  sections.forEach(el=>io.observe(el));
 })();
 </script>
 </body>
