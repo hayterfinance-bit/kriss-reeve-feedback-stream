@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>HAYTERWAVE × CHAMPP — In The Attic (Robot Club Master) · for Kriss Reeve</title>
-<meta property="og:title" content="HAYTERWAVE × CHAMPP — In The Attic (Robot Club Master)" />
+<title>HAYTERWAVE × CHAMPP · In The Attic (Robot Club Master) · for Kriss Reeve</title>
+<meta property="og:title" content="HAYTERWAVE × CHAMPP · In The Attic (Robot Club Master)" />
 <meta property="og:description" content="Club master · -7 LUFS · 48kHz/24-bit · cooked for Kriss Reeve. Feedback welcome." />
 <meta property="og:type" content="music.song" />
 <style>
@@ -106,6 +106,12 @@
   .sig b{color:var(--fg)}
   .heart{color:var(--accent)}
   .sig a{color:var(--accent2); text-decoration:none; border-bottom:1px solid rgba(0,200,200,.3)}
+  .story{background:#0a0a0a; border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px; margin:0 0 22px}
+  .story p{margin:0 0 10px; font-size:13.5px; line-height:1.6; color:#cfcfcf}
+  .story p:last-child{margin:0}
+  .story b.hl{color:var(--accent2)}
+  .story .reach{font-size:12.5px; color:var(--muted)}
+  .story .reach b{color:var(--fg)}
 
   /* isometric grid that matches the 3D video vibe */
   .grid{position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.16;
@@ -127,19 +133,25 @@
 <div class="wrap">
   <div class="card" id="card">
     <div class="grid"></div>
-    <div class="krisstop">★ Cooked for Kriss Reeve</div>
-    <h1>In The Attic <span class="r">— Robot</span></h1>
+    <div class="krisstop">★ Page built for Kriss Reeve</div>
+    <h1>In The Attic <span class="r">Robot</span></h1>
     <p class="by">HAYTERWAVE <span style="color:var(--accent)">×</span> CHAMPP</p>
-    <p class="forkriss">Club Master · submitted to the Kriss Reeve feedback stream</p>
+    <p class="forkriss">Club Master. This <i>page</i> was built for your feedback stream. The track stands on its own.</p>
 
     <div class="viz">
       <canvas id="cv"></canvas>
-      <div class="hint" id="hint"><b>▶ Hit play — watch it move</b><span>live spectrum · best on headphones / monitors</span></div>
+      <div class="hint" id="hint"><b>▶ Hit play, watch it move</b><span>live spectrum · best on headphones / monitors</span></div>
     </div>
 
     <button class="playcta" id="play"><span class="ico">▶</span><span id="playtxt">Play Club Master</span></button>
     <p class="scrub-label">Scrub / volume</p>
     <audio id="aud" controls preload="none" src="robot.mp3" crossorigin="anonymous"></audio>
+
+    <div class="story reveal">
+      <div class="seclabel">Why it hits</div>
+      <p>"In The Attic" is a <b>FIRST Robotics</b> reveal anthem, packed with double meanings only the community catches. <b class="hl">"Limelight"</b> is the vision camera teams bolt on to auto-aim. <b class="hl">"Swerve"</b> is swerve drive, the 360° drivetrain that makes a 120lb robot <i>dance</i>. Out of context it sounds like flexing. To a build season it hits like a war cry.</p>
+      <p class="reach"><b>The reach:</b> 3,300 active FRC teams, times their members, times every mentor, parent and friend behind them. Plus the music fans. Plus whoever reshares a robot reveal. Organic, not bought.</p>
+    </div>
 
     <div class="seclabel">File</div>
     <div class="stats">
@@ -151,7 +163,7 @@
       <div class="stat"><div class="k">Data Rate</div><div class="v">2304 <span>kbps</span></div></div>
     </div>
 
-    <div class="seclabel">Loudness — EBU R128</div>
+    <div class="seclabel">Loudness · EBU R128</div>
     <div class="stats">
       <div class="stat"><div class="k">Integrated</div><div class="v">-7.0 <span>LUFS</span></div><div class="note">festival-loud</div></div>
       <div class="stat"><div class="k">True Peak</div><div class="v">-0.3 <span>dBTP</span></div><div class="note">no clip</div></div>
@@ -173,7 +185,7 @@
 
     <div class="seclabel">Spectral & Sub</div>
     <div class="stats">
-      <div class="stat"><div class="k">&lt; 15 Hz Energy</div><div class="v">-31 <span>dB</span></div><div class="note">0.07% — clean headroom</div></div>
+      <div class="stat"><div class="k">&lt; 15 Hz Energy</div><div class="v">-31 <span>dB</span></div><div class="note">0.07%, clean headroom</div></div>
       <div class="stat"><div class="k">Peak Energy</div><div class="v">53.5 <span>Hz</span></div><div class="note">kick/bass region</div></div>
       <div class="stat"><div class="k">Centroid</div><div class="v">439 <span>Hz</span></div><div class="note">low-weighted</div></div>
       <div class="stat"><div class="k">Sub-Bass Focus</div><div class="v">88 <span>%</span></div><div class="note">energy &lt;500Hz</div></div>
@@ -196,7 +208,7 @@
     </div>
 
     <div class="vid">
-      <div class="seclabel">Official Video — 3D Isometric (Club Version)</div>
+      <div class="seclabel">Official Video · 3D Isometric (Club Version)</div>
       <div class="embed">
         <div class="facade" id="vidfacade" style="background-image:url('https://i.ytimg.com/vi/JnOEdegoIb0/hqdefault.jpg')">
           <div class="pb">▶</div>
@@ -206,9 +218,10 @@
     </div>
 
     <div class="inst">
-      <div class="seclabel">Bonus — Instrumental Club Master</div>
-      <h3>In The Attic — Instrumental</h3>
+      <div class="seclabel">Bonus · Instrumental Club Master</div>
+      <h3>In The Attic, Instrumental</h3>
       <p>Same master chain, vocals pulled. 48kHz/24-bit · -7 LUFS.</p>
+      <div class="viz" style="height:90px; margin-bottom:12px"><canvas id="cv2"></canvas></div>
       <audio id="inst" controls preload="none" src="instrumental.mp3" crossorigin="anonymous"></audio>
       <div class="row" style="margin-top:10px">
         <a class="btn primary" href="instrumental.mp3" download>Instrumental MP3 320</a>
@@ -217,10 +230,10 @@
     </div>
 
     <div class="sig">
-      <b>Yo Kriss</b> — appreciate you spinning this on stream <span class="heart">🙏</span>
-      It's a club master, so it's pushed loud (-7 LUFS) but the peaks are clean and the
-      mono fold holds. Sub's tight, no rumble under 15Hz eating headroom. <b>— HAYTERWAVE × CHAMPP</b><br>
-      <a href="mailto:hayterfinance@gmail.com?subject=In%20The%20Attic%20—%20feedback">reach me here</a>
+      <b>Yo Kriss</b>, appreciate you spinning this on stream <span class="heart">🙏</span>
+      It's a club master so it's pushed loud (-7 LUFS), but the peaks are clean and it
+      folds to mono fine. Sub's tight, nothing under 15Hz eating headroom. <b>HAYTERWAVE × CHAMPP</b><br>
+      <a href="mailto:hayterfinance@gmail.com?subject=In%20The%20Attic%20feedback">reach me here</a>
     </div>
   </div>
 </div>
@@ -230,14 +243,17 @@
   const aud=document.getElementById('aud');
   const inst=document.getElementById('inst');
   const cv=document.getElementById('cv');
+  const cv2=document.getElementById('cv2');
   const hint=document.getElementById('hint');
   const playBtn=document.getElementById('play');
   const playTxt=document.getElementById('playtxt');
   const ctx=cv.getContext('2d');
+  const ctx2=cv2.getContext('2d');
   let ac, analyser, data, wired=false, active=aud;
 
-  function fit(){const r=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
-  window.addEventListener('resize',fit); fit();
+  function fit(c,x){const r=c.getBoundingClientRect(),dpr=window.devicePixelRatio||1;c.width=r.width*dpr;c.height=r.height*dpr;x.setTransform(dpr,0,0,dpr,0,0);}
+  function fitAll(){fit(cv,ctx);fit(cv2,ctx2);}
+  window.addEventListener('resize',fitAll); fitAll();
 
   function wire(){
     if(wired) return; wired=true;
@@ -248,18 +264,22 @@
     data=new Uint8Array(analyser.frequencyBinCount);
     draw();
   }
-  function draw(){
-    requestAnimationFrame(draw);
-    const w=cv.clientWidth,h=cv.clientHeight; ctx.clearRect(0,0,w,h);
-    if(!analyser) return;
-    analyser.getByteFrequencyData(data);
+  function paint(c,x,live){
+    const w=c.clientWidth,h=c.clientHeight; x.clearRect(0,0,w,h);
+    if(!live||!analyser) return;
     const n=Math.floor(data.length*0.7), bw=w/n;
     for(let i=0;i<n;i++){
       const v=data[i]/255, bh=v*h, t=i/n;
       const r=Math.round(204*(1-t)), g=Math.round(200*t), b=Math.round(204*(1-t)+200*t);
-      ctx.fillStyle='rgb('+r+','+g+','+b+')';
-      ctx.fillRect(i*bw,h-bh,Math.max(bw-1,1),bh);
+      x.fillStyle='rgb('+r+','+g+','+b+')';
+      x.fillRect(i*bw,h-bh,Math.max(bw-1,1),bh);
     }
+  }
+  function draw(){
+    requestAnimationFrame(draw);
+    if(analyser) analyser.getByteFrequencyData(data);
+    paint(cv,ctx,!aud.paused);
+    paint(cv2,ctx2,!inst.paused);
   }
   function startEl(el){
     active=el; wire(); if(ac.state==='suspended') ac.resume();
@@ -277,7 +297,7 @@
   fac.addEventListener('click',()=>{
     const ifr=document.createElement('iframe');
     ifr.src='https://www.youtube.com/embed/JnOEdegoIb0?autoplay=1';
-    ifr.title='In The Attic — 3D Isometric Music Video';
+    ifr.title='In The Attic 3D Isometric Music Video';
     ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
     ifr.allowFullscreen=true;
     if(!aud.paused) aud.pause();
