@@ -22,7 +22,11 @@
       radial-gradient(900px 520px at -5% 110%, rgba(0,200,200,.10), transparent 60%),
       var(--bg);
   }
-  .wrap{width:min(820px,100%); perspective:1400px; perspective-origin:50% 30%}
+  .wrap{width:min(1180px,100%); perspective:1600px; perspective-origin:50% 30%}
+  .cols{display:grid; grid-template-columns:1.04fr 1fr; gap:32px; align-items:start; margin:8px 0 0}
+  .col-left,.col-right{min-width:0}
+  .col-right .vid{margin-top:0}
+  @media(max-width:880px){.cols{grid-template-columns:1fr; gap:8px}}
   .card{
     background:var(--panel); border:1px solid var(--line);
     border-radius:20px; padding:30px; box-shadow:0 30px 90px rgba(0,0,0,.6), 0 0 90px rgba(204,0,204,.08);
@@ -68,7 +72,7 @@
   .seclabel{display:flex; align-items:center; gap:10px; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent2); margin:0 0 7px}
   .seclabel::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--line),transparent)}
 
-  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:7px; margin:0 0 16px}
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(80px,1fr)); gap:7px; margin:0 0 14px}
   .stat{background:linear-gradient(150deg,#161616,#0b0b0b); border:1px solid var(--line); border-radius:9px; padding:7px 9px; position:relative; overflow:hidden;
     box-shadow:3px 3px 0 rgba(204,0,204,.22), 6px 6px 0 rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
     transform:translateZ(0); transition:transform .2s ease, box-shadow .2s ease}
@@ -111,11 +115,11 @@
   a.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#070707; border:none}
 
   .vid{margin-top:40px}
-  .vidhead{text-align:center; font-size:23px; font-weight:800; letter-spacing:.03em; margin:0 0 18px;
+  .vidhead{text-align:center; font-size:21px; font-weight:800; letter-spacing:.03em; margin:0 0 14px;
     background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent)); background-size:200% 100%;
     -webkit-background-clip:text; background-clip:text; color:transparent; animation:slide 5s linear infinite, bob 3s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-  .vidstage{perspective:1300px; padding:24px 0 30px}
+  .vidstage{perspective:1300px; padding:14px 8px 26px}
   .embed{position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid var(--line)}
   .embed iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
   .embed.spin{transform-style:preserve-3d; cursor:pointer;
@@ -174,6 +178,9 @@
     <p class="by">HAYTERWAVE <span style="color:var(--accent)">×</span> CHAMPP</p>
     <p class="forkriss">Club Master. This <i>page</i> was built for your feedback stream. The track stands on its own.</p>
 
+    <div class="cols">
+    <div class="col-left">
+
     <div class="viz">
       <canvas id="cv"></canvas>
       <div class="hint" id="hint"><b>▶ Hit play, watch it move</b><span>live spectrum · best on headphones / monitors</span></div>
@@ -182,12 +189,6 @@
     <button class="playcta" id="play"><span class="ico">▶</span><span id="playtxt">Play Club Master</span></button>
     <p class="scrub-label">Scrub / volume</p>
     <audio id="aud" controls preload="none" src="robot.mp3" crossorigin="anonymous"></audio>
-
-    <div class="story reveal">
-      <div class="seclabel">Why it hits</div>
-      <p>This one's for the robotics teams. The lyrics are full of robot words that sound like rap flexes. <b class="hl">"Limelight"</b> is the little camera that lets the robot aim by itself. <b class="hl">"Swerve"</b> is the wheels that spin any direction so a 120lb robot moves like it's dancing. To anyone else it just sounds hard. To a <b>FIRST Robotics</b> team it's basically their anthem.</p>
-      <p class="reach"><b>The reach:</b> 3,300 active FRC teams, times their members, times every mentor, parent and friend behind them. Plus the music fans. Plus whoever reshares a robot reveal. Organic, not bought.</p>
-    </div>
 
     <details class="specs">
       <summary>
@@ -253,6 +254,9 @@
       <a class="btn" href="robot-master.wav" download>Download WAV master (54MB)</a>
     </div>
 
+    </div><!-- /col-left -->
+
+    <div class="col-right">
     <div class="vid">
       <div class="vidhead">▶ Watch the 3D Robot Reveal</div>
       <div class="vidstage">
@@ -264,6 +268,15 @@
         </div>
       </div>
     </div>
+
+    <div class="story reveal">
+      <div class="seclabel">Why it hits</div>
+      <p>The lyrics are loaded with robot words that sound like rap flexes. <b class="hl">"Limelight"</b> is the little camera that lets the robot aim itself. <b class="hl">"Swerve"</b> is the wheels that spin in any direction, so a 120lb robot moves like it's dancing. To anyone outside it just sounds hard. To a <b>FIRST Robotics</b> team it's an anthem.</p>
+      <p class="reach"><b>The reach:</b> 3,300 active FRC teams, times their members, times every mentor, parent and friend behind them. Plus the music fans. Plus whoever reshares a robot reveal. Organic, not bought.</p>
+    </div>
+
+    </div><!-- /col-right -->
+    </div><!-- /cols -->
 
     <div class="inst">
       <div class="seclabel">Bonus · Instrumental Club Master</div>
