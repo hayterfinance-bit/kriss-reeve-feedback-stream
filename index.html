@@ -323,7 +323,7 @@
   }
 
   /* ---- staggered reveal + count-up ---- */
-  const sections=[...document.querySelectorAll('.seclabel,.stats,.bands,.row,.vid,.inst,.sig')];
+  const sections=[...document.querySelectorAll('.story,.seclabel,.stats,.bands,.row,.vid,.inst,.sig')];
   sections.forEach(el=>el.classList.add('reveal'));
   function countUp(stat){
     const vEl=stat.querySelector('.v'); if(!vEl||vEl.dataset.done)return;
@@ -345,6 +345,8 @@
     });
   },{threshold:.2});
   sections.forEach(el=>io.observe(el));
+  // failsafe: never leave a section hidden if the observer doesn't fire
+  setTimeout(()=>sections.forEach(el=>el.classList.add('in')),1600);
 })();
 </script>
 </body>
