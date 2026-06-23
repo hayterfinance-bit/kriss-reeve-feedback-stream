@@ -201,6 +201,32 @@
     <p class="scrub-label">Scrub / volume</p>
     <audio id="aud" controls preload="none" src="robot.mp3" crossorigin="anonymous"></audio>
 
+    <div class="story reveal">
+      <div class="seclabel">Why it hits</div>
+      <p>The lyrics are loaded with robot words that sound like rap flexes. <b class="hl">"Limelight"</b> is the little camera that lets the robot aim itself. <b class="hl">"Swerve"</b> is the wheels that spin in any direction, so a 120lb robot moves like it's dancing. To anyone outside it just sounds hard. To a <b>FIRST Robotics</b> team it's an anthem.</p>
+      <p class="reach"><b>The reach:</b> 3,300 active FRC teams, times their members, times every mentor, parent and friend behind them. Plus the music fans. Plus whoever reshares the video. Organic, not bought.</p>
+    </div>
+
+    <div class="row">
+      <a class="btn primary" href="robot.mp3" download>Download MP3 320</a>
+      <a class="btn" href="robot-master.wav" download>Download WAV master (54MB)</a>
+    </div>
+
+    </div><!-- /col-left -->
+
+    <div class="col-right">
+    <div class="vid">
+      <div class="vidhead">▶ Watch the 3D Club Video</div>
+      <div class="vidstage">
+        <div class="embed spin" id="embed">
+          <div class="facade" id="vidfacade" style="background-image:url('https://i.ytimg.com/vi/JnOEdegoIb0/maxresdefault.jpg')">
+            <div class="pb">▶</div>
+            <div class="watch">Click to play · 3D Isometric Club Version</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <details class="specs">
       <summary>
         <span class="flex">🔬 <b>22 measured specs</b> · 48kHz · <b>-7 LUFS</b> · +0.94 mono-safe · sub clean...</span>
@@ -260,32 +286,6 @@
       </div>
     </details>
 
-    <div class="row">
-      <a class="btn primary" href="robot.mp3" download>Download MP3 320</a>
-      <a class="btn" href="robot-master.wav" download>Download WAV master (54MB)</a>
-    </div>
-
-    </div><!-- /col-left -->
-
-    <div class="col-right">
-    <div class="vid">
-      <div class="vidhead">▶ Watch the 3D Club Video</div>
-      <div class="vidstage">
-        <div class="embed spin" id="embed">
-          <div class="facade" id="vidfacade" style="background-image:url('https://i.ytimg.com/vi/JnOEdegoIb0/maxresdefault.jpg')">
-            <div class="pb">▶</div>
-            <div class="watch">Click to play · 3D Isometric Club Version</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="story reveal">
-      <div class="seclabel">Why it hits</div>
-      <p>The lyrics are loaded with robot words that sound like rap flexes. <b class="hl">"Limelight"</b> is the little camera that lets the robot aim itself. <b class="hl">"Swerve"</b> is the wheels that spin in any direction, so a 120lb robot moves like it's dancing. To anyone outside it just sounds hard. To a <b>FIRST Robotics</b> team it's an anthem.</p>
-      <p class="reach"><b>The reach:</b> 3,300 active FRC teams, times their members, times every mentor, parent and friend behind them. Plus the music fans. Plus whoever reshares the video. Organic, not bought.</p>
-    </div>
-
     </div><!-- /col-right -->
     </div><!-- /cols -->
 
@@ -294,6 +294,8 @@
       <h3>In The Attic, Instrumental</h3>
       <p>Same master chain, vocals pulled. 48kHz/24-bit · -7 LUFS.</p>
       <div class="viz" style="height:90px; margin-bottom:12px"><canvas id="cv2"></canvas></div>
+      <button class="playcta" id="playinst"><span class="ico">▶</span><span id="playinsttxt">Play Instrumental</span></button>
+      <p class="scrub-label">Scrub / volume</p>
       <audio id="inst" controls preload="none" src="instrumental.mp3" crossorigin="anonymous"></audio>
       <div class="row" style="margin-top:10px">
         <a class="btn primary" href="instrumental.mp3" download>Instrumental MP3 320</a>
@@ -319,6 +321,8 @@
   const hint=document.getElementById('hint');
   const playBtn=document.getElementById('play');
   const playTxt=document.getElementById('playtxt');
+  const playInst=document.getElementById('playinst');
+  const playInstTxt=document.getElementById('playinsttxt');
   const ctx=cv.getContext('2d');
   const ctx2=cv2.getContext('2d');
   let ac, analyser, data, wired=false, active=aud;
@@ -362,7 +366,10 @@
   playBtn.addEventListener('click',()=>{ aud.paused?startEl(aud):aud.pause(); });
   aud.addEventListener('play',()=>{ hint.style.opacity=0; playBtn.classList.add('playing'); playTxt.textContent='Pause'; playBtn.querySelector('.ico').textContent='❚❚'; });
   aud.addEventListener('pause',()=>{ playBtn.classList.remove('playing'); playTxt.textContent='Play Club Master'; playBtn.querySelector('.ico').textContent='▶'; });
-  inst.addEventListener('play',()=>{ hint.style.opacity=0; wire(); if(ac.state==='suspended')ac.resume(); if(!aud.paused)aud.pause(); });
+
+  playInst.addEventListener('click',()=>{ inst.paused?startEl(inst):inst.pause(); });
+  inst.addEventListener('play',()=>{ wire(); if(ac&&ac.state==='suspended')ac.resume(); if(!aud.paused)aud.pause(); playInst.classList.add('playing'); playInstTxt.textContent='Pause'; playInst.querySelector('.ico').textContent='❚❚'; });
+  inst.addEventListener('pause',()=>{ playInst.classList.remove('playing'); playInstTxt.textContent='Play Instrumental'; playInst.querySelector('.ico').textContent='▶'; });
 
   // click-to-load video so it never steals the first click
   const fac=document.getElementById('vidfacade');
